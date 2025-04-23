@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
           const div = document.createElement("div");
           div.className = "cart-item";
           div.innerHTML = `
-            <img src="/harvest-hop/images/${product.image}" alt="${product.name}">
+            <img src="/harvest-hop/images/products/${product.image}" alt="${product.name}">
             <div>
               <h3>${product.name}</h3>
               <p>Price: $${product.price}</p>
@@ -40,11 +40,11 @@ document.addEventListener("DOMContentLoaded", () => {
         totalDiv.innerHTML = `<h3>Total: $${total.toFixed(2)}</h3>`;
       });
   });
-  
+
   function removeFromCart(productId) {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
     cart = cart.filter(item => item.id !== productId);
     localStorage.setItem("cart", JSON.stringify(cart));
-    location.reload(); // refresh to update UI
-  }
+    location.reload();
+  }  
   

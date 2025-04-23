@@ -5,16 +5,11 @@
     <meta charset="UTF-8">
     <title>Delivery Details - Harvest Hop</title>
     <link rel="stylesheet" href="../css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <header>
-        <h1>Delivery Details</h1>
-        <nav>
-            <a href="../index.html">Home</a>
-            <a href="cart.html">Back to Cart</a>
-        </nav>
-    </header>
+<?php include '../includes/header.php'; ?>
 
     <main>
         <form id="deliveryForm">

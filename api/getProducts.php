@@ -1,6 +1,6 @@
 <?php
 header("Content-Type: application/json");
-$conn = new mysqli("localhost", "root", "", "grocery_store");
+$conn = new mysqli("localhost", "root", "", "harvest_hop_db");
 
 if ($conn->connect_error) {
     http_response_code(500);

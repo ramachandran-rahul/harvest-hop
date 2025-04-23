@@ -1,0 +1,70 @@
+<?php
+header("Content-Type: application/json");
+
+$conn = new mysqli("localhost", "root", "", "harvest_hop_db");
+
+if ($conn->connect_error) {
+    http_response_code(500);
+    echo json_encode(["success" => false, "message" => "Database connection failed."]);
+    exit;
+}
+
+$data = json_decode(file_get_contents("php://input"), true);
+$user = $data["userInfo"];
+$cart = $data["cart"];
+
+if (!$user || !$cart) {
+    echo json_encode(["success" => false, "message" => "Missing user or cart data."]);
+    exit;
+}
+
+// 1. Validate stock
+foreach ($cart as $item) {
+    $productId = $item["id"];
+    $qty = $item["qty"];
+
+    $stmt = $conn->prepare("SELECT stock FROM products WHERE id = ?");
+    $stmt->bind_param("i", $productId);
+    $stmt->execute();
+    $stmt->bind_result($stock);
+    $stmt->fetch();
+    $stmt->close();
+
+    if ($stock === null || $stock < $qty) {
+        echo json_encode(["success" => false, "message" => "Insufficient stock for product ID $productId"]);
+        exit;
+    }
+}
+
+// 2. Insert into orders (mock table) and update stock
+foreach ($cart as $item) {
+    $productId = $item["id"];
+    $qty = $item["qty"];
+
+    // Update stock
+    $stmt = $conn->prepare("UPDATE products SET stock = stock - ? WHERE id = ?");
+    $stmt->bind_param("ii", $qty, $productId);
+    $stmt->execute();
+    $stmt->close();
+}
+
+// (Optional) You can also save the order info into a separate orders table if desired
+// For now we just simulate confirmation.
+
+echo json_encode(["success" => true]);
+
+// 3. Insert into orders table
+$stmt = $conn->prepare("INSERT INTO orders (customer_name, email, mobile, address, state, cart) VALUES (?, ?, ?, ?, ?, ?)");
+$cartJSON = json_encode($cart);
+$stmt->bind_param(
+    "ssssss",
+    $user["name"],
+    $user["email"],
+    $user["mobile"],
+    $user["address"],
+    $user["state"],
+    $cartJSON
+);
+$stmt->execute();
+$stmt->close();
+?>

@@ -4,15 +4,11 @@
   <meta charset="UTF-8">
   <title>Your Cart - Harvest Hop</title>
   <link rel="stylesheet" href="/harvest-hop/css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
   <header>
-    <h1>Your Cart</h1>
-    <nav>
-      <a href="/harvest-hop/index.html">Home</a>
-      <a href="/harvest-hop/pages/delivery.html">Proceed to Delivery</a>
-    </nav>
-  </header>
+  <?php include '../includes/header.php'; ?>
 
   <main>
     <div id="cartItems" class="cart-grid"></div>

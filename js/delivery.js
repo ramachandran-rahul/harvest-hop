@@ -21,6 +21,10 @@ form.addEventListener("submit", async (e) => {
   const result = await response.json();
 
   if (result.success) {
+    // Save info for confirmation display
+    localStorage.setItem("lastUserEmail", userInfo.email);
+    localStorage.setItem("lastUserName", userInfo.name);
+    
     localStorage.removeItem("cart");
     window.location.href = "confirm.html";
   } else {
