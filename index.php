@@ -16,7 +16,7 @@
     </div>
     <div id="productGrid" class="product-grid"></div>
   </main>
-  
+  <div id="toast" class="toast">Item added to cart</div>
   <script src="js/products.js"></script>
 </body>
 </html>
