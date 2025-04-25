@@ -369,7 +369,7 @@ main {
 .cart-header > div {
   display: flex; 
   justify-content: space-between; 
-  align-items: baseline; 
+  align-items: end; 
   margin: 1rem 2rem;
 }
 
