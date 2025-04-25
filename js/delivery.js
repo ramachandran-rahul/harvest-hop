@@ -1,7 +1,7 @@
 const form = document.getElementById("deliveryForm");
 const submitBtn = form.querySelector(".place-order-btn");
 
-// Live field validation
+// Field validation
 function validateFormFields() {
   let allValid = true;
   const fields = form.querySelectorAll("input, select");

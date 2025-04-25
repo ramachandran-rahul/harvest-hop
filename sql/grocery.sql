@@ -1,3 +1,13 @@
+-- Create and select the database
+CREATE DATABASE IF NOT EXISTS harvest_hop_db;
+USE harvest_hop_db;
+
+-- Drop existing tables for clean import
+DROP TABLE IF EXISTS orders;
+DROP TABLE IF EXISTS products;
+
+-- Comment out the database creation and DROP statements if the database already exists
+
 -- Create products table with category + subcategory
 CREATE TABLE IF NOT EXISTS products (
   id INT AUTO_INCREMENT PRIMARY KEY,

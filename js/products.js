@@ -125,7 +125,7 @@ function displaySearchResults(filtered, query) {
   const grid = document.getElementById("productGrid");
   const searchHeader = document.getElementById("searchHeader");
 
-  // Update the header section
+  // Update the search header section
   searchHeader.innerHTML = `
     <h2>Search Results for "<span>${query}</span>"</h2>
     <p>Here's what we found:</p>
@@ -276,7 +276,7 @@ function addToCart(productId) {
     return;
   }
 
-  // ✅ Update cart
+  // Update cart
   if (existing) {
     existing.qty++;
   } else {
@@ -292,7 +292,7 @@ function addToCart(productId) {
   const cards = grid.getElementsByClassName("product-card");
   for (let card of cards) {
     if (card.querySelector("h3")?.textContent === product.name) {
-      const newCard = createProductCard(product, cart); // ✅ cart passed in
+      const newCard = createProductCard(product, cart);
       card.replaceWith(newCard);
       break;
     }

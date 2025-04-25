@@ -51,9 +51,6 @@ foreach ($cart as $item) {
     $stmt->close();
 }
 
-// (Optional) You can also save the order info into a separate orders table if desired
-// For now we just simulate confirmation.
-
 // 3. Insert into orders table
 $stmt = $conn->prepare("INSERT INTO orders (customer_name, email, mobile, street, city, state, pincode, cart) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 $cartJSON = json_encode($cart);

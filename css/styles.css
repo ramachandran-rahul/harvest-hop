@@ -179,6 +179,7 @@ main {
 
 
 
+
 /* Products */
 
 .product-grid {
@@ -361,7 +362,7 @@ main {
 
 .cart-grid {
   padding: 1rem 2rem;
-  height: 65vh;
+  height: 60vh;
   overflow-y: auto;
 }
 
@@ -668,6 +669,12 @@ input:invalid,
 select:invalid {
   border-color: #d32f2f;
 }
+
+
+
+
+
+
 
 /* Confirmation */
 
