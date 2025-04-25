@@ -331,6 +331,10 @@ main {
   margin: 0;
 }
 
+.cart-header > div p {
+  margin-bottom: 0;
+}
+
 .cart-header .clear-btn {
   display: flex;
   align-items: center;

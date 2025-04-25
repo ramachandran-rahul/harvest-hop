@@ -11,8 +11,7 @@
   <main>
     <div>
       <h1 style = "margin-top: 0px">Welcome to Harvest Hop</h1>
-      <p>Your one-stop shop for fresh produce and groceries.</p>
-      <p>Browse our wide selection across categories and add items to your cart.</p>
+      <p>Your one-stop shop for fresh produce and groceries. Browse our wide selection across categories and add items to your cart.</p>
     </div>
     <div id="productGrid" class="product-grid"></div>
   </main>

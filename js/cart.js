@@ -16,7 +16,10 @@ document.addEventListener("DOMContentLoaded", () => {
       let totalItems = 0;
       document.getElementById("cartHeader").innerHTML = `
         <div>
-          <h2>Shopping Cart (${cart.reduce((sum, item) => sum + item.qty, 0)})</h2>
+          <div>
+            <h2>Shopping Cart (${cart.reduce((sum, item) => sum + item.qty, 0)})</h2>
+            <p>Here are all the items you picked out. Think you forgot something? Click on the page logo to go back to view more products.</p>
+          </div>
           <button onclick="clearCart()" class="clear-btn">
             <img src="/harvest-hop/images/exit_icon.png" alt="Clear" class="exit-icon"> Clear Cart
           </button>
