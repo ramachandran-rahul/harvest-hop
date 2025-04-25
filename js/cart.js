@@ -53,7 +53,8 @@ document.addEventListener("DOMContentLoaded", () => {
           <div class="quantity-control">
             <button onclick="updateQuantity(${product.id}, -1)">-</button>
             <span>${item.qty}</span>
-            <button onclick="updateQuantity(${product.id}, 1)" ${item.qty >= product.stock ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : ''}>+</button>
+            <button onclick="updateQuantity(${product.id}, 1)" 
+              ${item.qty >= product.stock ? 'disabled title="Only ' + product.stock + ' ' + product.name + ' in stock" style="opacity: 0.5; cursor: not-allowed;"' : ''}>+</button>
           </div>
           <div class="cart-actions">
             <p style="margin-top: 0.4rem;">Subtotal: $${itemTotal.toFixed(2)}</p>
