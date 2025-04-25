@@ -316,7 +316,7 @@ main {
 
 .cart-grid {
   padding: 1rem 2rem;
-  max-height: 65vh;
+  height: 65vh;
   overflow-y: auto;
 }
 
@@ -473,7 +473,7 @@ main {
   display: flex;
   align-items: center;
   justify-content: end;
-  width: 145px;
+  width: 165px;
   margin-top: 8px;
   background: #2e7d32;
   color: white;

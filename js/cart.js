@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
               <h3>$${total.toFixed(2)}</h3>
             </div>
             <button onclick="window.location.href='delivery.php'" class="checkout-btn">
-              <img src="/harvest-hop/images/checkout_icon.png" alt="Checkout" class="checkout-icon">Checkout
+              <img src="/harvest-hop/images/checkout_icon.png" alt="Checkout" class="checkout-icon">Place Order
             </button>
           </div>
         </div>
