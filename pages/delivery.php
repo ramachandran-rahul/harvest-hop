@@ -35,7 +35,13 @@
             <div class="form-row">
                 <label style="width: 100%;">
                 Email:
-                <input type="email" name="email" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" title="Enter a valid email">
+                <input
+                    type="email"
+                    name="email"
+                    required
+                    pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,63}$"
+                    title="Please enter a valid email address (e.g., user@example.com)"
+                >
                 <small class="error-msg"></small>
                 </label>
             </div>
