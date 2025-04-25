@@ -185,22 +185,30 @@ function displaySearchResults(filtered, query) {
   }
 }
 
-
-function createProductCard(p) {
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
-  const cartItem = cart.find(item => item.id === p.id);
+function createProductCard(p, latestCart = null) {
+  const cart = latestCart || JSON.parse(localStorage.getItem("cart")) || [];
+  const cartItem = cart.find(item => item.id == p.id);
   const qtyInCart = cartItem ? cartItem.qty : 0;
-  const remainingStock = p.stock - qtyInCart;
+  const stock = Number(p.stock);
+  const remainingStock = stock - qtyInCart;
 
   const inStock = remainingStock > 0;
 
-  const buttonHTML = inStock
-    ? `<button onclick="addToCart(${p.id})">
-         <div>+</div><div>Add to Cart</div>
-       </button>`
-    : `<button disabled style="background-color: #ccc; cursor: not-allowed;">
-         <div>x</div><div>Out of Stock</div>
-       </button>`;
+  console.log(inStock, remainingStock, stock, qtyInCart);
+
+  const stockLabel = inStock
+    ? `<p style="color: green; font-weight: bold; margin: 6px 0; display: flex; align-items: center; gap: 6px;">
+         <span style="font-size: 1rem;">&#10004;</span> In Stock
+       </p>`
+    : `<p style="color: #d32f2f; font-weight: bold; margin: 6px 0; display: flex; align-items: center; gap: 6px;">
+         <span style="font-size: 1rem;">&#10006;</span> Out of Stock
+       </p>`;
+
+  const buttonHTML = `
+    <button onclick="addToCart(${p.id})" ${!inStock ? 'disabled style="background-color: #ccc; cursor: not-allowed;"' : ''}>
+      <div>+</div><div>Add to Cart</div>
+    </button>
+  `;
 
   const card = document.createElement("div");
   card.className = "product-card";
@@ -211,10 +219,11 @@ function createProductCard(p) {
       <h3>${p.name}</h3>
       <p>${p.description}</p>
     </div>
-    <div style="display:flex; align-items: baseline; gap: 5px; font-size: 0.9rem; color: #333; margin: 0 0 10px 0;">
+    <div style="display:flex; align-items: baseline; gap: 5px; font-size: 0.9rem; color: #333;">
       <strong>$${Number(p.price).toFixed(2)}</strong>
-      <p style="font-size: 0.85rem; color: #666;">per ${p.unit}</p>
+      <p style="font-size: 0.85rem; color: #666; margin: 0;">per ${p.unit}</p>
     </div>
+    ${stockLabel}
     ${buttonHTML}
   `;
   return card;
@@ -253,17 +262,21 @@ function showToast(message) {
 }
 
 function addToCart(productId) {
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
   const product = allProducts.find(p => p.id == productId);
   if (!product) return showToast("Product not found.");
 
-  const stock = parseInt(product.stock);
-  const existing = cart.find(item => item.id === productId);
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const stock = Number(product.stock);
+  const existing = cart.find(item => item.id == productId);
   const qtyInCart = existing ? existing.qty : 0;
 
   const remaining = stock - qtyInCart;
-  if (remaining <= 0) return showToast(`${product.name} is out of stock.`);
+  if (remaining <= 0) {
+    showToast(`${product.name} is out of stock.`);
+    return;
+  }
 
+  // ✅ Update cart
   if (existing) {
     existing.qty++;
   } else {
@@ -274,16 +287,14 @@ function addToCart(productId) {
   showToast(`Added ${qtyInCart + 1} × ${product.name} to cart`);
   updateCartBadge();
 
-  // Re-render product card if stock becomes 0
-  if ((stock - (qtyInCart + 1)) === 0) {
-    const grid = document.getElementById("productGrid");
-    const cards = grid.getElementsByClassName("product-card");
-    for (let card of cards) {
-      if (card.querySelector("h3").textContent === product.name) {
-        const newCard = createProductCard(product);
-        card.replaceWith(newCard);
-        break;
-      }
+  // Re-render the card using latest stock data
+  const grid = document.getElementById("productGrid");
+  const cards = grid.getElementsByClassName("product-card");
+  for (let card of cards) {
+    if (card.querySelector("h3")?.textContent === product.name) {
+      const newCard = createProductCard(product, cart); // ✅ cart passed in
+      card.replaceWith(newCard);
+      break;
     }
   }
 }
