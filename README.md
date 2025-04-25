@@ -34,6 +34,10 @@ Harvest Hop is a responsive grocery shopping web application built using **PHP**
 4. Open your browser and visit:  
    `http://localhost/harvest-hop/index.php`
 
+## 📂 GitHub Repository
+You can view the project code here:
+https://github.com/ramachandran-rahul/harvest-hop
+
 ## ✨ Notes
 This app was built as part of an assignment with a focus on:
 - Functional cart flow
