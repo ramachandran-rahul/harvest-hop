@@ -76,7 +76,10 @@
                 </label>
             </div>
 
-            <button type="submit" class="place-order-btn" disabled>Place Order</button>
+            <button type="submit" class="place-order-btn" disabled>
+                <img src="/harvest-hop/images/confirm_icon.png" alt="confirm">
+                Place Order
+            </button>
         </form>
 
     </section>

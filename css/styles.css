@@ -558,38 +558,42 @@ main {
   padding: 2rem 3rem;
   background-color: #fafafa;
   border-radius: 10px;
-  max-width: 800px;
-  margin: 2rem auto;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+  max-width: 100%;
+  margin: 0 auto;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
 }
 
 .delivery-header {
-  text-align: center;
+  text-align: left;
   margin-bottom: 2rem;
 }
 
 .delivery-header h2 {
   margin: 0;
   font-size: 1.8rem;
-  color: #2e7d32;
+  margin-top: 1.5rem;
 }
 
 .delivery-header p {
   font-size: 0.95rem;
   color: #666;
-  margin-top: 8px;
 }
 
 .back-to-cart {
   text-decoration: none;
-  color: #2e7d32;
+  background: #2e7d32;
+  color: white;
+  padding: 8px 20px;
+  border: none;
+  border-radius: 22px;
   font-weight: bold;
-  display: inline-block;
-  margin-bottom: 1rem;
+  font-size: .8rem;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
 }
 
 .back-to-cart:hover {
-  text-decoration: underline;
+  background: #1b5e20;
 }
 
 .delivery-form {
@@ -630,17 +634,26 @@ main {
 }
 
 .place-order-btn {
+  display: flex;
+  align-items: center;
   background: #2e7d32;
   color: white;
   padding: 12px 20px;
   border: none;
-  border-radius: 6px;
+  border-radius: 25px;
   font-weight: bold;
   font-size: 1rem;
+  font-family: 'Poppins', sans-serif;
   cursor: pointer;
   align-self: flex-end;
 }
 
 .place-order-btn:hover {
   background: #1b5e20;
+}
+
+.place-order-btn img {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
 }
