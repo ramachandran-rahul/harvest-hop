@@ -9,18 +9,20 @@
 <body>
 <?php include '../includes/minimal-header.php'; ?>
 
-  <main>
-    <section id="confirmationSection" class="confirmation-box">
-      <h2>Your order has been placed successfully 🎉</h2>
-      <p>We've sent a confirmation email to <strong id="userEmail">you@example.com</strong>.</p>
-      <p>Thank you, <strong id="userName">Customer</strong>, for shopping with Harvest Hop.</p>
-      <p>Your items will be delivered soon 🚚</p>
-    </section>
-  </main>
+<main>
+  <section class="confirmation-box">
+    <h2>🎉 Order Confirmed!</h2>
+    <p>We've sent a confirmation email to <strong id="userEmail">you@example.com</strong>.</p>
+    <p>Thank you, <strong id="userName">Customer</strong>, for shopping with Harvest Hop.</p>
+    <p>Your items will be delivered soon 🚚</p>
 
-  <script>
-    document.getElementById("userEmail").textContent = localStorage.getItem("lastUserEmail") || "your email";
-    document.getElementById("userName").textContent = localStorage.getItem("lastUserName") || "valued customer";
-  </script>
+    <a href="/harvest-hop/index.php" class="back-home-btn">← Back to Home</a>
+  </section>
+</main>
+
+<script>
+  document.getElementById("userEmail").textContent = localStorage.getItem("lastUserEmail") || "your email";
+  document.getElementById("userName").textContent = localStorage.getItem("lastUserName") || "valued customer";
+</script>
 </body>
 </html>

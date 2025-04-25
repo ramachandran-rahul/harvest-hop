@@ -669,3 +669,45 @@ input:invalid,
 select:invalid {
   border-color: #d32f2f;
 }
+
+/* Confirmation */
+
+.confirmation-box {
+  max-width: 600px;
+  margin: 4rem auto;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+.confirmation-box h2 {
+  font-size: 1.8rem;
+  color: #2e7d32;
+  margin-bottom: 1rem;
+}
+
+.confirmation-box p {
+  font-size: 1rem;
+  margin: 0.75rem 0;
+  color: #444;
+}
+
+.back-home-btn {
+  display: inline-block;
+  margin-top: 2rem;
+  padding: 12px 20px;
+  background: #2e7d32;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 22px;
+  font-family: 'Poppins', sans-serif;
+  transition: background 0.3s ease;
+}
+
+.back-home-btn:hover {
+  background: #1b5e20;
+}
