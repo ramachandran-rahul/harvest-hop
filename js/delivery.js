@@ -79,6 +79,23 @@ form.addEventListener("submit", async (e) => {
     localStorage.removeItem("cart");
     window.location.href = "confirm.php";
   } else {
-    alert("Order failed: " + result.message);
-  }
+    showToast(result.message || "Something went wrong.");
+    setTimeout(() => {
+      window.location.href = "cart.php";
+    }, 3000); 
+  }  
 });
+
+function showToast(message) {
+  const toast = document.getElementById("toast");
+  if (!toast) return;
+
+  toast.classList.remove("show");
+  
+  toast.textContent = message;
+  toast.classList.add("show");
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+  }, 4000);
+}

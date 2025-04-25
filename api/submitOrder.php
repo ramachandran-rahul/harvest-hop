@@ -23,15 +23,18 @@ foreach ($cart as $item) {
     $productId = $item["id"];
     $qty = $item["qty"];
 
-    $stmt = $conn->prepare("SELECT stock FROM products WHERE id = ?");
+    $stmt = $conn->prepare("SELECT stock, name FROM products WHERE id = ?");
     $stmt->bind_param("i", $productId);
     $stmt->execute();
-    $stmt->bind_result($stock);
+    $stmt->bind_result($stock, $productName);
     $stmt->fetch();
     $stmt->close();
 
     if ($stock === null || $stock < $qty) {
-        echo json_encode(["success" => false, "message" => "Insufficient stock for product ID $productId"]);
+        echo json_encode([
+            "success" => false,
+            "message" => "Only $stock × $productName left in stock. Please update your cart."
+        ]);
         exit;
     }
 }
@@ -51,8 +54,6 @@ foreach ($cart as $item) {
 // (Optional) You can also save the order info into a separate orders table if desired
 // For now we just simulate confirmation.
 
-echo json_encode(["success" => true]);
-
 // 3. Insert into orders table
 $stmt = $conn->prepare("INSERT INTO orders (customer_name, email, mobile, street, city, state, pincode, cart) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 $cartJSON = json_encode($cart);
@@ -69,4 +70,7 @@ $stmt->bind_param(
 );
 $stmt->execute();
 $stmt->close();
-?>
+
+// After all DB operations done
+echo json_encode(["success" => true]);
+exit;
