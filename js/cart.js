@@ -4,7 +4,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const totalDiv = document.getElementById("cartTotal");
 
   if (cart.length === 0) {
-    container.innerHTML = "<p>Your cart is empty.</p>";
+    container.innerHTML = `
+      <div class="empty-cart-box">
+        <img src="/harvest-hop/images/empty_cart_icon.png" alt="Empty Cart">
+        <h3>Your cart is empty</h3>
+        <p>Looks like you haven't added anything to your cart yet.</p>
+        <a href="/harvest-hop/index.php" class="browse-link">←  Browse Products</a>
+      </div>
+    `;
     totalDiv.textContent = "";
     return;
   }
