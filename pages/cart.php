@@ -11,6 +11,7 @@
   <?php include '../includes/header.php'; ?>
 
   <main>
+    <div id="cartHeader" class="cart-header"></div>
     <div id="cartItems" class="cart-grid"></div>
     <div id="cartTotal" class="cart-total"></div>
   </main>

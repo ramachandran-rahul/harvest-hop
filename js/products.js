@@ -124,6 +124,21 @@ function displaySearchResults(filtered, query) {
 }
 
 function createProductCard(p) {
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const cartItem = cart.find(item => item.id === p.id);
+  const qtyInCart = cartItem ? cartItem.qty : 0;
+  const remainingStock = p.stock - qtyInCart;
+
+  const inStock = remainingStock > 0;
+
+  const buttonHTML = inStock
+    ? `<button onclick="addToCart(${p.id})">
+         <div>+</div><div>Add to Cart</div>
+       </button>`
+    : `<button disabled style="background-color: #ccc; cursor: not-allowed;">
+         <div>x</div><div>Out of Stock</div>
+       </button>`;
+
   const card = document.createElement("div");
   card.className = "product-card";
   card.innerHTML = `
@@ -133,11 +148,11 @@ function createProductCard(p) {
       <h3>${p.name}</h3>
       <p>${p.description}</p>
     </div>
-    <p><strong>$${Number(p.price).toFixed(2)}</strong></p>
-    <button onclick="addToCart(${p.id})">
-      <div>+</div>
-      <div>Add to Cart</div>
-    </button>
+    <div style="display:flex; align-items: baseline; gap: 5px; font-size: 0.9rem; color: #333; margin: 0 0 10px 0;">
+      <strong>$${Number(p.price).toFixed(2)}</strong>
+      <p style="font-size: 0.85rem; color: #666;">per ${p.unit}</p>
+    </div>
+    ${buttonHTML}
   `;
   return card;
 }
@@ -181,19 +196,35 @@ function addToCart(productId) {
 
   const stock = parseInt(product.stock);
   const existing = cart.find(item => item.id === productId);
+  const qtyInCart = existing ? existing.qty : 0;
+
+  const remaining = stock - qtyInCart;
+  if (remaining <= 0) return showToast(`${product.name} is out of stock.`);
 
   if (existing) {
-    if (existing.qty >= stock) return showToast(`Only ${stock} in stock.`);
     existing.qty++;
   } else {
-    if (stock < 1) return showToast(`${product.name} is out of stock.`);
     cart.push({ id: productId, qty: 1 });
   }
 
   localStorage.setItem("cart", JSON.stringify(cart));
-  showToast(`Added ${existing ? existing.qty : 1} × ${product.name} to cart`);
+  showToast(`Added ${qtyInCart + 1} × ${product.name} to cart`);
   updateCartBadge();
+
+  // Re-render product card if stock becomes 0
+  if ((stock - (qtyInCart + 1)) === 0) {
+    const grid = document.getElementById("productGrid");
+    const cards = grid.getElementsByClassName("product-card");
+    for (let card of cards) {
+      if (card.querySelector("h3").textContent === product.name) {
+        const newCard = createProductCard(product);
+        card.replaceWith(newCard);
+        break;
+      }
+    }
+  }
 }
+
 
 function updateCartBadge() {
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
