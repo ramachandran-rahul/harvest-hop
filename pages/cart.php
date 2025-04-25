@@ -8,7 +8,7 @@
 </head>
 <body>
   <header>
-  <?php include '../includes/header.php'; ?>
+  <?php include '../includes/minimal-header.php'; ?>
 
   <main>
     <div id="cartHeader" class="cart-header"></div>

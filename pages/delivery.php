@@ -9,7 +9,7 @@
 </head>
 
 <body>
-<?php include '../includes/header.php'; ?>
+<?php include '../includes/minimal-header.php'; ?>
 
     <main>
         <form id="deliveryForm">
