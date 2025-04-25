@@ -57,8 +57,10 @@ CREATE TABLE IF NOT EXISTS orders (
   customer_name VARCHAR(255),
   email VARCHAR(255),
   mobile VARCHAR(20),
-  address TEXT,
+  street VARCHAR(255),
+  city VARCHAR(100),
   state VARCHAR(50),
+  pincode VARCHAR(10),
   cart JSON,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

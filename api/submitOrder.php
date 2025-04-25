@@ -54,15 +54,17 @@ foreach ($cart as $item) {
 echo json_encode(["success" => true]);
 
 // 3. Insert into orders table
-$stmt = $conn->prepare("INSERT INTO orders (customer_name, email, mobile, address, state, cart) VALUES (?, ?, ?, ?, ?, ?)");
+$stmt = $conn->prepare("INSERT INTO orders (customer_name, email, mobile, street, city, state, pincode, cart) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 $cartJSON = json_encode($cart);
 $stmt->bind_param(
-    "ssssss",
+    "ssssssss",
     $user["name"],
     $user["email"],
     $user["mobile"],
-    $user["address"],
+    $user["street"],
+    $user["city"],
     $user["state"],
+    $user["pincode"],
     $cartJSON
 );
 $stmt->execute();
