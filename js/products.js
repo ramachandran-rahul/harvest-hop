@@ -6,15 +6,27 @@ document.addEventListener("DOMContentLoaded", () => {
     .then(data => {
       allProducts = data;
 
-      // If on search page, do search
-      if (window.location.pathname.includes("search.php")) {
-        initSearchPage();
-      } else {
-        displayProducts(allProducts); // home page display
-      }
-
-      attachFilters(); // category/subcategory
+      attachFilters(); // Set up filter click listeners
       updateCartBadge();
+
+      if (window.location.pathname.includes("search.php")) {
+        initSearchPage(); // Search page only
+      } else {
+        const savedCat = localStorage.getItem("filterCat");
+        const savedSub = localStorage.getItem("filterSub");
+
+        if (savedCat) {
+          const filtered = allProducts.filter(p => p.category === savedCat);
+          displayProducts(filtered);
+          localStorage.removeItem("filterCat");
+        } else if (savedSub) {
+          const filtered = allProducts.filter(p => p.subcategory === savedSub);
+          displayProducts(filtered);
+          localStorage.removeItem("filterSub");
+        } else {
+          displayProducts(allProducts); // Default view
+        }
+      }
     })
     .catch(err => {
       console.error("Failed to load products", err);
@@ -23,34 +35,37 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function attachFilters() {
+  // Subcategories
   document.querySelectorAll(".submenu a").forEach(link => {
     link.addEventListener("click", (e) => {
       e.preventDefault();
       const sub = link.textContent.trim();
-      const filtered = allProducts.filter(p => p.subcategory === sub);
-      displayProducts(filtered);
+      localStorage.setItem("filterSub", sub);
+      window.location.href = "/harvest-hop/index.php";
     });
   });
 
+  // Main categories
   document.querySelectorAll(".main-nav > ul > li > a").forEach(link => {
     link.addEventListener("click", (e) => {
       const cat = link.textContent.trim();
       if (cat === "Home") {
         e.preventDefault();
-        displayProducts(allProducts);
-      } else if (cat !== "") {
+        window.location.href = "/harvest-hop/index.php";
+      } else {
         e.preventDefault();
-        const filtered = allProducts.filter(p => p.category === cat);
-        displayProducts(filtered);
+        localStorage.setItem("filterCat", cat);
+        window.location.href = "/harvest-hop/index.php";
       }
     });
   });
 
+  // Logo/brand click
   const brandLink = document.querySelector(".brand");
   if (brandLink) {
     brandLink.addEventListener("click", (e) => {
       e.preventDefault();
-      displayProducts(allProducts);
+      window.location.href = "/harvest-hop/index.php";
     });
   }
 }
@@ -108,16 +123,23 @@ function displayProducts(products) {
 
 function displaySearchResults(filtered, query) {
   const grid = document.getElementById("productGrid");
-  const searchTerm = document.getElementById("search-term");
-  if (searchTerm) searchTerm.textContent = query;
+  const searchHeader = document.getElementById("searchHeader");
 
+  // Update the header section
+  searchHeader.innerHTML = `
+    <h2>Search Results for "<span>${query}</span>"</h2>
+    <p>Here's what we found:</p>
+  `;
+
+  // Clear previous grid content
   grid.innerHTML = "";
 
   if (!filtered || filtered.length === 0) {
-    grid.innerHTML = "<p>No products matched your search.</p>";
+    grid.innerHTML = `<p>No products matched your search.</p>`;
     return;
   }
 
+  // Group search results by category
   const grouped = {};
   filtered.forEach(p => {
     if (!grouped[p.category]) grouped[p.category] = [];
@@ -136,10 +158,12 @@ function displaySearchResults(filtered, query) {
     const section = document.createElement("section");
     section.classList.add("category-section");
 
+    // Category heading
     const catHeading = document.createElement("h2");
     catHeading.textContent = category;
     section.appendChild(catHeading);
 
+    // Subtext description
     const catDesc = document.createElement("p");
     catDesc.textContent = categoryDescriptions[category] || "";
     catDesc.style.fontSize = "0.9rem";
@@ -147,6 +171,7 @@ function displaySearchResults(filtered, query) {
     catDesc.style.color = "#555";
     section.appendChild(catDesc);
 
+    // Product grid
     const row = document.createElement("div");
     row.className = "product-row";
 
@@ -159,6 +184,7 @@ function displaySearchResults(filtered, query) {
     grid.appendChild(section);
   }
 }
+
 
 function createProductCard(p) {
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
