@@ -112,15 +112,52 @@ function displaySearchResults(filtered, query) {
   if (searchTerm) searchTerm.textContent = query;
 
   grid.innerHTML = "";
+
   if (!filtered || filtered.length === 0) {
     grid.innerHTML = "<p>No products matched your search.</p>";
     return;
   }
 
+  const grouped = {};
   filtered.forEach(p => {
-    const card = createProductCard(p);
-    grid.appendChild(card);
+    if (!grouped[p.category]) grouped[p.category] = [];
+    grouped[p.category].push(p);
   });
+
+  const categoryDescriptions = {
+    Fresh: "Fresh produce delivered daily. Fruits, vegetables, and leafy greens.",
+    Dairy: "Quality dairy essentials including milk, cheese, and butter.",
+    Pantry: "Your everyday pantry staples, sauces, grains, and more.",
+    Frozen: "Tasty frozen meals and sweet treats ready to go.",
+    Household: "Cleaning and home needs for a tidy, stress-free life."
+  };
+
+  for (const category in grouped) {
+    const section = document.createElement("section");
+    section.classList.add("category-section");
+
+    const catHeading = document.createElement("h2");
+    catHeading.textContent = category;
+    section.appendChild(catHeading);
+
+    const catDesc = document.createElement("p");
+    catDesc.textContent = categoryDescriptions[category] || "";
+    catDesc.style.fontSize = "0.9rem";
+    catDesc.style.margin = "0.25rem 0 1rem";
+    catDesc.style.color = "#555";
+    section.appendChild(catDesc);
+
+    const row = document.createElement("div");
+    row.className = "product-row";
+
+    grouped[category].forEach(p => {
+      const card = createProductCard(p);
+      row.appendChild(card);
+    });
+
+    section.appendChild(row);
+    grid.appendChild(section);
+  }
 }
 
 function createProductCard(p) {
