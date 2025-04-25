@@ -90,8 +90,10 @@ function removeFromCart(productId) {
 }
 
 function clearCart() {
-  localStorage.removeItem("cart");
-  location.reload();
+  if (confirm("Are you sure you want to clear your cart?")) {
+    localStorage.removeItem("cart");
+    location.reload();
+  }
 }
 
 function updateQuantity(productId, change) {

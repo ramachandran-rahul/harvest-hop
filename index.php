@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+<!--
+  Harvest Hop - A simple grocery store web application
+  Assignment 1 - 32516 Internet Programming
+  Rahul Ramachandran - 24910212
+  Date: 25th April 2025
+-->
 <html lang="en">
 <head>
   <meta charset="UTF-8">

@@ -14,7 +14,8 @@
     <h2>🎉 Order Confirmed!</h2>
     <p>We've sent a confirmation email to <strong id="userEmail">you@example.com</strong>.</p>
     <p>Thank you, <strong id="userName">Customer</strong>, for shopping with Harvest Hop.</p>
-    <p>Your items will be delivered soon 🚚</p>
+    <p>Your items will be delivered soon.</p>
+    <p>Estimated delivery: <strong>2-3 business days</strong> 🚛</p>
 
     <a href="/harvest-hop/index.php" class="back-home-btn">← Back to Home</a>
   </section>

@@ -63,7 +63,7 @@
     </nav>
 
     <div class="header-right">
-      <input type="text" id="searchBox" class="search-input" placeholder="Search products..." onkeydown="if(event.key==='Enter') handleSearch()">
+      <input type="text" id="searchBox" class="search-input" placeholder="Type a product and press enter..." onkeydown="if(event.key==='Enter') handleSearch()">
       <a href="/harvest-hop/pages/cart.php" class="navbar-cart-button">
         <div>
           <img src="/harvest-hop/images/cart_icon.png" alt="cart">

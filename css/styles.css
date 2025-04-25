@@ -57,7 +57,6 @@ main {
   gap: 25px;
   margin: 0;
   padding: 0;
-  padding-left: 150px;
 }
 
 .main-nav a {
@@ -710,4 +709,18 @@ select:invalid {
 
 .back-home-btn:hover {
   background: #1b5e20;
+}
+
+
+
+
+
+
+/* Responsive Code */
+
+
+@media screen and (max-width: 1475px) {
+  .main-nav>ul {
+    gap: 5px;
+  }
 }
